@@ -3,7 +3,7 @@
 draw(B) ->
     L = length(B),
     convert_rows(1, B),
-    os:cmd("convert " ++ rows(L) ++ " -append images/board.png"),
+    os:cmd("convert " ++ rows(L) ++ " -append src/web/board.png"),
     os:cmd("rm row*.png").
 format_number(N) ->
     lists:flatten(io_lib:format("~2.10.0B", [N])).
@@ -17,13 +17,13 @@ convert_rows(N, [H|T]) ->
     convert_rows(N+1, T).
 make_row([]) -> [];
 make_row([43|X]) -> 
-    "images/star.png "++make_row(X);
+    "src/web/star.png "++make_row(X);
 make_row([88|X]) -> 
-    "images/black.png "++make_row(X);
+    "src/web/black.png "++make_row(X);
 make_row([79|X]) -> 
-    "images/white.png "++make_row(X);
+    "src/web/white.png "++make_row(X);
 make_row([32|X]) -> 
-    "images/empty.png "++make_row(X).
+    "src/web/empty.png "++make_row(X).
 test() ->
     B = [ "                   ",
 	  "                   ",

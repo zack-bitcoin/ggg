@@ -19,13 +19,13 @@ receive_loop(S, B) ->
 full_board(C) ->
     D = lists:reverse(C),
     full_2(D).
-full_2([84,32,83,32,82,32,81,32,80,32,79,32,78,32,77,32,76,32,75,32,74,32,72,32,71,32,70,32,69,32,68,32,67,32,66,32,65,32,32,32,10,49|_]) -> true; %the last line we care about looks like this. A B C ...
+full_2([84,32,83,32,82,32,81,32,80,32,79,32,78,32,77,32,76,32,75,32,74,32,72,32,71,32,70,32,69,32,68,32,67,32,66,32,65,32,32,32,10,49|_]) -> true; %the last line we care about looks like this: A B C D E F ...
 full_2([_|X]) -> full_2(X);
 full_2([]) -> false.
-read_board([Y|[_|X]]) when (Y < 58) and (Y > 48)-> %19
+read_board([Y|[_|X]]) when (Y < 58) and (Y > 48)-> %the digits 1-9.
     {Row, Rest} = lists:splitwith(fun(A) -> Y =/= A end, X),
     B = case hd(Row) of
-	    32 -> Row;
+	    32 -> Row;%32 is " "
 	    _ -> [32|Row]
 	end,
     A = read_row(B),
@@ -56,7 +56,5 @@ test() ->
     erlang:open_port({spawn, "gnugo --mode gtp --gtp-listen "++integer_to_list(Port)}, []),
     timer:sleep(1000),
     {ok, S} = gen_tcp:connect({127,0,0,1}, Port, [binary,{active, true}]),
-    %gen_tcp:send(S, <<"showboard\n">>),
-    %{tcp, S, _} = receive X -> X end.
-    get_board(S).
+    draw:draw(get_board(S)).
 
