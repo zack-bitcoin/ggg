@@ -5,5 +5,6 @@
               {applications,[kernel,stdlib,jiffy,ssl,cowboy]},
               {mod,{ggg_app,[]}},
               {env,[]},
-              {modules,[connect,constants,draw,ggg_app,ggg_sup,
-                        internal_handler,main_handler,serve]}]}.
+              {modules,['GGG_sup',board,connect,constants,current_board,draw,
+                        get_board,ggg_app,ggg_sup,internal_handler,
+                        main_handler,play_move,serve,socket,tester]}]}.

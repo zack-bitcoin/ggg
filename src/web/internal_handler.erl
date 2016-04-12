@@ -16,8 +16,22 @@ handle(Req, State) ->
     {ok, Req2, State}.
 init(_Type, Req, _Opts) -> {ok, Req, no_state}.
 terminate(_Reason, _Req, _State) -> ok.
+doit([<<"new_game">>]) ->
+    board:start();
+doit([<<"play">>, X, Y]) ->
+    board:refresh(),
+    S = socket:fetch(),
+    io:fwrite("X is "),
+    io:fwrite(integer_to_list(X)),
+    io:fwrite("\n"),
+    play_move:doit(S, X, Y),
+    board:refresh();
+    %B = get_board:doit(S),
+%io:fwrite(B),
+%draw:draw(B);
 doit([<<"example">>]) ->
-    [<<"it works">>].
+    io:fwrite("example \n"),
+    [<<"it works">>];
 doit(X) ->
     io:fwrite("don't know how to handle it \n"),
     io:fwrite(jiffy:encode(X)),

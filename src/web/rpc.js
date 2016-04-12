@@ -7,12 +7,8 @@ function getter(t, u, callback){
     return xmlhttp
 }
 var PORT = parseInt(document.URL.substring(17, 21), 10);
-function get(t, callback) {
-    u = url(PORT - 1, "localhost");
-    return getter(t, u, callback);
-}
 function url(port, ip) { return "http://".concat(ip).concat(":").concat(port.toString().concat("/")); }
-function local_get(t, callback) {
+function get(t, callback) {
     u = url(PORT, "localhost");
     return getter(t, u, callback);
 }
@@ -23,22 +19,14 @@ function refresh_helper(x, callback) {
     else {setTimeout(function() {refresh_helper(x, callback);}, 1000);}
 };
 my_status = "nil";
-refresh_helper(x, function(){ 
-    my_status = JSON.parse(xml_out(x)); 
-    console.log("test response ".concat(JSON.stringify(my_status)));
-});
 function variable_get(cmd, callback) {
-    var x = local_get(cmd);
-    var_get(x, callback);
-}
-function variable_public_get(cmd, callback) {
     var x = get(cmd);
     var_get(x, callback);
 }
 function var_get(x, callback) {
     refresh_helper(x, function(){
 	p = JSON.parse(xml_out(x));
-	callback(p[1]);
+	callback(p);
     });
 }
 
