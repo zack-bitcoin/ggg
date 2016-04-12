@@ -22,4 +22,4 @@ doit(X) ->
     io:fwrite("don't know how to handle it \n"),
     io:fwrite(jiffy:encode(X)),
     io:fwrite("\n"),
-    {error}.
+    [<<"error">>].

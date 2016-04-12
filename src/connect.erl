@@ -57,4 +57,3 @@ test() ->
     timer:sleep(1000),
     {ok, S} = gen_tcp:connect({127,0,0,1}, Port, [binary,{active, true}]),
     draw:draw(get_board(S)).
-
