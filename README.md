@@ -1,19 +1,14 @@
 # ggg
 GnuGoGui
 
-This is a partially written program for connecting gnugo to the browser.
+This is a for connecting gnugo to the browser so that you can play go against an AI.
 
-Completed:
-cowboy server works with pictures.
-we can draw goboards.
-we can talk to gnugo.
+To change the difficulty, amount of ram used, etc, update the src/constants.erl file.
 
-Incomplete:
-javascript code for looking at the board and playing moves.
-api so that javascript can play moves.
-
-to start the node:
+to start the program:
 
 ```
 sh start.sh
 ```
+
+![beautiful](ggg.png?raw=true "screenshot")
