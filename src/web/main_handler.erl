@@ -6,7 +6,8 @@
 %curl -i -d '[-6,"test"]' http://localhost:3011
 handle(Req, _) ->
     {F, _} = cowboy_req:path(Req),
-    File = << <<"src/web">>/binary, F/binary>>,
+    S = list_to_binary(constants:location()),
+    File = << S/binary, F/binary>>,
     {ok, _Data, _} = cowboy_req:body(Req),
     Headers = [{<<"content-type">>, <<"text/html">>},
     {<<"Access-Control-Allow-Origin">>, <<"*">>}],

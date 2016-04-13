@@ -30,7 +30,7 @@ strip_captures([H|T]) -> [H|strip_captures(T)];
 strip_captures([]) -> [].
 strip_captures2([115,116,111,110,101,115|L]) -> %"stones"
     strip_captures(L);
-strip_captures2([H|T]) -> strip_captures2(T);
+strip_captures2([_|T]) -> strip_captures2(T);
 strip_captures2([]) -> [].
     
 strip_front([65,32,66,32,67,32,68,32,69,32,70,32,71,32,72,32|T]) -> T; %A B C D E F G H
