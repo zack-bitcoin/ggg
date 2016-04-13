@@ -1,4 +1,4 @@
-setInterval(board_display, 50);
+setInterval(board_display, 200);
 
 function board_display() {
     var src = document.getElementById("img");

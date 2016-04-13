@@ -12,7 +12,7 @@ connect(N) ->
 	    connect(N-1)
     end.
 	    
-start() -> start(10, 50).
+start() -> start(constants:difficulty(), constants:ram()).
 start(Level, Ram) ->
     GPort = constants:gnu_port(),
     P = integer_to_list(GPort),

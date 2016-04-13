@@ -1,13 +1,14 @@
 -module(play_move).
--export([doit/3]).
+-export([doit/3, ai/1]).
 
 doit(S, X, Y) ->
     A = to_letter(X),
     B = integer_to_list(Y),
     C = A++B,
     Command = "black "++C++"\n",
-    gen_tcp:send(S, list_to_binary(Command)),
-    board:refresh(),
+    gen_tcp:send(S, list_to_binary(Command)).
+
+ai(S) ->
     gen_tcp:send(S, <<"genmove white\n">>).
     
 to_letter(1) -> "A";

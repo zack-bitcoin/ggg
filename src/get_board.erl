@@ -1,5 +1,5 @@
 -module(get_board).
--export([doit/1]).
+-export([doit/1, interpret/1]).
 
 doit(S) ->
     gen_tcp:send(S, <<"showboard\n">>),
@@ -9,18 +9,19 @@ receive_loop(S, B) ->
 	{tcp, S, X} -> 
 	    C = <<B/binary, X/binary>>,
 	    L = binary_to_list(C),
-	    io:fwrite("board is "),
-	    io:fwrite(L),
-	    io:fwrite("\n"),
 	    Bool = full_board(L),
 	    if
-		Bool -> 
-		    read2(read_board(strip_front(strip_captures(L))));
+		Bool -> L;
 		true -> receive_loop(S, C)
 	    end
     after
-	2000 -> fail
+	constants:wait_on_gnu() -> fail
     end.
+
+
+
+interpret(L) ->
+    read2(read_board(strip_front(strip_captures(L)))).
 strip_captures([87,72,73,84,69|L]) -> %WHITE
     strip_captures2(L);
 strip_captures([66,76,65,67,75|L]) -> %BLACK
@@ -34,6 +35,11 @@ strip_captures2([]) -> [].
     
 strip_front([65,32,66,32,67,32,68,32,69,32,70,32,71,32,72,32|T]) -> T; %A B C D E F G H
 strip_front([_|X]) -> strip_front(X).
+
+
+
+
+
 full_board(C) ->
     D = lists:reverse(C),
     full_2(D).

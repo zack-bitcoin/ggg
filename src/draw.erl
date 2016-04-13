@@ -1,5 +1,7 @@
 -module(draw).
--export([test/0, draw/1]).
+-export([test/0, draw/1, interpret_draw/1]).
+interpret_draw(B) ->
+    draw(get_board:interpret(B)).
 draw(B) ->
     L = length(B),
     convert_rows(1, B),

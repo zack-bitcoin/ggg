@@ -7,7 +7,7 @@
 
 %% Helper macro for declaring children of supervisor
 -define(CHILD(I, Type), {I, {I, start_link, []}, permanent, 5000, Type, [I]}).
--define(children, [board, socket]).
+-define(children, [board, socket, board_user]).
 start_link() ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 child_maker([]) -> [];

@@ -7,6 +7,9 @@
 handle(Req, State) ->
     {ok, Data, _} = cowboy_req:body(Req),
     true = is_binary(Data),
+    io:fwrite("got message: "),
+    io:fwrite(Data),
+    io:fwrite("\n"),
     A = jiffy:decode(Data),
     B = doit(A),
     D = jiffy:encode(B),
@@ -17,18 +20,15 @@ handle(Req, State) ->
 init(_Type, Req, _Opts) -> {ok, Req, no_state}.
 terminate(_Reason, _Req, _State) -> ok.
 doit([<<"new_game">>]) ->
-    board:start();
+    board_user:start();
+doit([<<"undo">>]) ->
+    board_user:undo(),
+    board_user:refresh();
+doit([<<"refresh">>]) ->
+    board_user:refresh();
 doit([<<"play">>, X, Y]) ->
-    board:refresh(),
-    S = socket:fetch(),
-    io:fwrite("X is "),
-    io:fwrite(integer_to_list(X)),
-    io:fwrite("\n"),
-    play_move:doit(S, X, Y),
-    board:refresh();
-    %B = get_board:doit(S),
-%io:fwrite(B),
-%draw:draw(B);
+    board_user:play(X, Y),
+    board_user:refresh();
 doit([<<"example">>]) ->
     io:fwrite("example \n"),
     [<<"it works">>];
