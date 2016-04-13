@@ -23,9 +23,7 @@ handle_cast({play, X, Y}, _) ->
     refresh2(),
     board:flush(),
     play_move:ai(S),
-    io:fwrite("played ai"),
     board:wait_on_gnugo(),
-    io:fwrite("returned = "),
     refresh2(),
     {noreply, 0};
 handle_cast(start, _) -> 
